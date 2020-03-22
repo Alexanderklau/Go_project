@@ -15,4 +15,7 @@
 1. 添加Elasticserach可视化项目Elasticsearch-head
 
 ### 2020.03.21 UPDATE
-1. 更新一个Golang 的定时器框架
+1. 更新一个Golang的定时器框架
+
+### 2020.03.22 UPDATE
+1. 更新一个Golang的cron自动生成器
