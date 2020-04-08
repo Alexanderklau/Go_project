@@ -19,3 +19,7 @@
 
 ### 2020.03.22 UPDATE
 1. 更新一个Golang的cron自动生成器
+2. 更新一个Golang的日志框架
+
+### 2020.04.08 UPDATE
+1. 更新一个golang 调用 rabbimq的封装逻辑
