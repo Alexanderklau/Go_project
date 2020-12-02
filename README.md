@@ -23,3 +23,6 @@
 
 ### 2020.04.08 UPDATE
 1. 更新一个golang 调用 rabbimq的封装逻辑
+
+### 2020.12.02 UPDATE
+1. 更新一个Golang Es 的高阶使用方法
