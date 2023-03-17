@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/robfig/cron"
 	"time"
+
+	"github.com/robfig/cron"
 )
 
 func newWithSeconds() *cron.Cron {
@@ -11,7 +12,6 @@ func newWithSeconds() *cron.Cron {
 		cron.Hour | cron.Dom | cron.Month | cron.DowOptional | cron.Descriptor)
 	return cron.New(cron.WithParser(secondParser), cron.WithChain())
 }
-
 
 func main() {
 	c := newWithSeconds()
@@ -22,7 +22,5 @@ func main() {
 		fmt.Println("f2 start job....", time.Now().Format("2006-01-02 15:04:05"))
 	})
 	c.Start()
-	select {
-
-	}
+	select {}
 }

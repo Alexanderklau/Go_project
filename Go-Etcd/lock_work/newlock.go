@@ -1,14 +1,14 @@
 package mian
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 	"time"
+
 	//"reflect"
 
 	"go.etcd.io/etcd/clientv3"
 )
-
 
 var (
 	lease                  clientv3.Lease
@@ -24,14 +24,14 @@ var (
 )
 
 type ETCD struct {
-	client                 *clientv3.Client
-	cfg                    clientv3.Config
-	err                    error
+	client *clientv3.Client
+	cfg    clientv3.Config
+	err    error
 }
 
 func New(endpoints ...string) (*ETCD, error) {
 	cfg := clientv3.Config{
-		Endpoints: endpoints,
+		Endpoints:   endpoints,
 		DialTimeout: time.Second * 5,
 	}
 
@@ -42,7 +42,7 @@ func New(endpoints ...string) (*ETCD, error) {
 	}
 
 	etcd := &ETCD{
-		cfg: cfg,
+		cfg:    cfg,
 		client: client,
 	}
 
@@ -50,7 +50,7 @@ func New(endpoints ...string) (*ETCD, error) {
 	return etcd, nil
 }
 
-func (etcd *ETCD) Newleases_lock(ip string) (error) {
+func (etcd *ETCD) Newleases_lock(ip string) error {
 	lease := clientv3.NewLease(etcd.client)
 	leaseGrantResponse, err := lease.Grant(context.TODO(), 5)
 	if err != nil {
@@ -80,17 +80,17 @@ func (etcd *ETCD) Newleases_lock(ip string) (error) {
 	if txnResponse.Succeeded {
 		fmt.Println("抢到锁了")
 		fmt.Println("选定主节点 %s", ip)
-			for {
-				select {
-				case leaseKeepAliveResponse = <-leaseKeepAliveChan:
-					if leaseKeepAliveResponse != nil {
-						fmt.Println("续租成功,leaseID :", leaseKeepAliveResponse.ID)
-					} else {
-						fmt.Println("续租失败")
-					}
-	
+		for {
+			select {
+			case leaseKeepAliveResponse = <-leaseKeepAliveChan:
+				if leaseKeepAliveResponse != nil {
+					fmt.Println("续租成功,leaseID :", leaseKeepAliveResponse.ID)
+				} else {
+					fmt.Println("续租失败")
 				}
+
 			}
+		}
 	} else {
 		fmt.Println("没抢到锁", txnResponse.Responses[0].GetResponseRange().Kvs[0].Value)
 		fmt.Println("继续抢")
@@ -99,7 +99,7 @@ func (etcd *ETCD) Newleases_lock(ip string) (error) {
 	return nil
 }
 
-func main(){
+func main() {
 	etcd, err := New("xxxxxxxxx:2379")
 	if err != nil {
 		fmt.Println(err)

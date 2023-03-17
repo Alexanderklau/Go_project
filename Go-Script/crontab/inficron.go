@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-//FkZero 格式化数据，去掉多余的0
+// FkZero 格式化数据，去掉多余的0
 func FkZero(times string) (fmttime string) {
 	if string(times[0]) != "0" {
 		return times
@@ -18,7 +18,7 @@ func FkZero(times string) (fmttime string) {
 	}
 }
 
-//CreateCron 生成crontab语句
+// CreateCron 生成crontab语句
 func CreateCron(times string) (crontab string) {
 	timelists := strings.Split(times, ",")
 	if timelists[0] == "d" {
@@ -58,7 +58,7 @@ func CreateCron(times string) (crontab string) {
 	}
 }
 
-func main()  {
+func main() {
 	times := "d,03,12:00"
 	crontab := CreateCron(times)
 	fmt.Println(crontab)
